@@ -3,20 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{18098531-688F-49F6-9719-46C24C5BF590}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicBookInventoryAPI", "ComicBookInventoryAPI\ComicBookInventoryAPI.csproj", "{9603148B-D6CD-4722-A96F-B295A0156714}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9869AE9C-D1E3-49BA-8AB0-9835677A9F6E}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-		..\..\Components\ComicBookInventoryDomain\global.json = ..\..\Components\ComicBookInventoryDomain\global.json
-		..\..\Components\ComicBookInventoryData\global.json = ..\..\Components\ComicBookInventoryData\global.json
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigiFramework", "..\..\..\Framework\MigiFramework\MigiFramework.csproj", "{9881B257-4B49-4F9F-97A4-692523655FC2}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ComicBookInventoryAPI", "src\ComicBookInventoryAPI\ComicBookInventoryAPI.xproj", "{0A5AB76C-61B1-4167-9283-E0FB9ADDDFD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigiFrameworkHelper", "..\..\..\Framework\MigiFrameworkHelper\MigiFrameworkHelper.csproj", "{3B728659-D167-4A20-AC97-C86DD346CD8B}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ComicBookInventoryDomain", "..\..\Components\ComicBookInventoryDomain\ComicBookInventoryDomain.xproj", "{6943A53C-3201-46AF-BEDD-79A54BC9115E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicBookInventoryData", "..\..\Components\ComicBookInventoryData\ComicBookInventoryData.csproj", "{82ED98E1-ED95-4FD2-A957-57AAB2870C3C}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ComicBookInventoryData", "..\..\Components\ComicBookInventoryData\ComicBookInventoryData.xproj", "{011D3B26-EEE8-4F55-AAF9-18DDF73A32EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicBookInventoryDomain", "..\..\Components\ComicBookInventoryDomain\ComicBookInventoryDomain.csproj", "{41A0C044-5EF8-4D17-B857-3F821D77203E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicBookInventoryTests", "..\..\Components\ComicBookInventoryTests\ComicBookInventoryTests.csproj", "{5D5BD15D-4B1E-4F9A-AD99-260203C3D034}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,25 +21,32 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0A5AB76C-61B1-4167-9283-E0FB9ADDDFD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0A5AB76C-61B1-4167-9283-E0FB9ADDDFD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0A5AB76C-61B1-4167-9283-E0FB9ADDDFD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0A5AB76C-61B1-4167-9283-E0FB9ADDDFD8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6943A53C-3201-46AF-BEDD-79A54BC9115E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6943A53C-3201-46AF-BEDD-79A54BC9115E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6943A53C-3201-46AF-BEDD-79A54BC9115E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6943A53C-3201-46AF-BEDD-79A54BC9115E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{011D3B26-EEE8-4F55-AAF9-18DDF73A32EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{011D3B26-EEE8-4F55-AAF9-18DDF73A32EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{011D3B26-EEE8-4F55-AAF9-18DDF73A32EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{011D3B26-EEE8-4F55-AAF9-18DDF73A32EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9603148B-D6CD-4722-A96F-B295A0156714}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9603148B-D6CD-4722-A96F-B295A0156714}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9603148B-D6CD-4722-A96F-B295A0156714}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9603148B-D6CD-4722-A96F-B295A0156714}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9881B257-4B49-4F9F-97A4-692523655FC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9881B257-4B49-4F9F-97A4-692523655FC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9881B257-4B49-4F9F-97A4-692523655FC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9881B257-4B49-4F9F-97A4-692523655FC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B728659-D167-4A20-AC97-C86DD346CD8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B728659-D167-4A20-AC97-C86DD346CD8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B728659-D167-4A20-AC97-C86DD346CD8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B728659-D167-4A20-AC97-C86DD346CD8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82ED98E1-ED95-4FD2-A957-57AAB2870C3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82ED98E1-ED95-4FD2-A957-57AAB2870C3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82ED98E1-ED95-4FD2-A957-57AAB2870C3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82ED98E1-ED95-4FD2-A957-57AAB2870C3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41A0C044-5EF8-4D17-B857-3F821D77203E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41A0C044-5EF8-4D17-B857-3F821D77203E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41A0C044-5EF8-4D17-B857-3F821D77203E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41A0C044-5EF8-4D17-B857-3F821D77203E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D5BD15D-4B1E-4F9A-AD99-260203C3D034}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D5BD15D-4B1E-4F9A-AD99-260203C3D034}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D5BD15D-4B1E-4F9A-AD99-260203C3D034}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D5BD15D-4B1E-4F9A-AD99-260203C3D034}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{0A5AB76C-61B1-4167-9283-E0FB9ADDDFD8} = {18098531-688F-49F6-9719-46C24C5BF590}
-		{6943A53C-3201-46AF-BEDD-79A54BC9115E} = {18098531-688F-49F6-9719-46C24C5BF590}
-		{011D3B26-EEE8-4F55-AAF9-18DDF73A32EC} = {18098531-688F-49F6-9719-46C24C5BF590}
 	EndGlobalSection
 EndGlobal

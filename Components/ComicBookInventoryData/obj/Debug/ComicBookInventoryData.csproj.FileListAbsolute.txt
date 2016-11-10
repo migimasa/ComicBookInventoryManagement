@@ -1,0 +1,7 @@
+J:\Programming\GitHub\ComicBookInventoryManagement\Components\ComicBookInventoryData\bin\Debug\ComicBookInventoryData.dll
+J:\Programming\GitHub\ComicBookInventoryManagement\Components\ComicBookInventoryData\bin\Debug\ComicBookInventoryData.pdb
+J:\Programming\GitHub\ComicBookInventoryManagement\Components\ComicBookInventoryData\bin\Debug\Dapper.dll
+J:\Programming\GitHub\ComicBookInventoryManagement\Components\ComicBookInventoryData\bin\Debug\Dapper.xml
+J:\Programming\GitHub\ComicBookInventoryManagement\Components\ComicBookInventoryData\obj\Debug\ComicBookInventoryData.csprojResolveAssemblyReference.cache
+J:\Programming\GitHub\ComicBookInventoryManagement\Components\ComicBookInventoryData\obj\Debug\ComicBookInventoryData.dll
+J:\Programming\GitHub\ComicBookInventoryManagement\Components\ComicBookInventoryData\obj\Debug\ComicBookInventoryData.pdb

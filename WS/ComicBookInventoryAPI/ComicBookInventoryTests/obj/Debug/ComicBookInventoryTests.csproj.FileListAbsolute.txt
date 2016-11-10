@@ -1,0 +1,1 @@
+J:\Programming\GitHub\ComicBookInventoryManagement\WS\ComicBookInventoryAPI\ComicBookInventoryTests\obj\Debug\ComicBookInventoryTests.csprojResolveAssemblyReference.cache
