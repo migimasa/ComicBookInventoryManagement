@@ -215,7 +215,16 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Components\ComicBookInventoryDomain\ComicBookInventoryDomain.csproj">
+      <Project>{41A0C044-5EF8-4D17-B857-3F821D77203E}</Project>
+      <Name>ComicBookInventoryDomain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ComicBookInventoryInfrastructure\ComicBookInventoryInfrastructure.csproj">
+      <Project>{61ef9c44-35f6-417e-923a-7ee527ab5a23}</Project>
+      <Name>ComicBookInventoryInfrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

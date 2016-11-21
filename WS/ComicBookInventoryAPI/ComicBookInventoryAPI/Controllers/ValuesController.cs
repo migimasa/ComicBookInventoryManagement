@@ -1,18 +1,28 @@
-﻿using System;
+﻿using ComicBookInventory.Domain.ComicBook;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using ComicBookInventory.Domain.Abstract;
 
 namespace ComicBookInventoryAPI.Controllers
 {
     public class ValuesController : ApiController
     {
-        // GET api/values
-        public IEnumerable<string> Get()
+        private IComicBook comicBookAccess;
+        public ValuesController(IComicBook comicBookAccess)
         {
-            return new string[] { "value1", "value2" };
+            this.comicBookAccess = comicBookAccess;
+        }
+
+        // GET api/values
+        public IHttpActionResult Get()
+        {
+            comicBookAccess.GetComicBookIssuesForUser(new Guid("CACE14BC-AB05-4081-964C-0D75C8C3E8FD"));
+
+            return Ok();
         }
 
         // GET api/values/5

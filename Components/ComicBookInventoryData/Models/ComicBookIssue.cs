@@ -8,7 +8,7 @@ namespace ComicBookInventory.Data.Models
 {
     public class ComicBookIssue
     {
-        public Guid ComicBookIssueId { get; set; }
+        public int ComicBookIssueId { get; set; }
         public string SeriesTitle { get; set; }
         public int IssueNumber { get; set; }
         public string Writer { get; set; }

@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using ComicBookInventory.Data.Abstract;
 using ComicBookInventory.Data.Models;
 using AutoMapper;
+using ComicBookInventory.Domain.Abstract;
 
 
 namespace ComicBookInventory.Domain.ComicBook
 {
-    public class ComicBookService
+    public class ComicBookService : IComicBook
     {
         private IIssueAccess _issueAccess;
         private MapperConfiguration mapConfig;
