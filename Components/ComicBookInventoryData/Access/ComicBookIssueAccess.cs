@@ -21,6 +21,15 @@ namespace ComicBookInventory.Data.Access
                 return connection.Query<ComicBookIssue>("spComicBookIssueGetComicBookIssue", new { UserId = userId }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
+
+        public ComicBookIssue GetComicBookIssue(int issueId)
+        {
+            using (SqlConnection connection = GetOpenConnection())
+            {
+                return connection.Query<ComicBookIssue>("spComicBookIssueGetComicBookIssue", new { IssueId = issueId }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
+
         public bool SaveComicBookIssue(ComicBookIssue issue)
         {
             using (SqlConnection connection = GetOpenConnection())

@@ -28,6 +28,8 @@ namespace ComicBookInventory.Domain.ComicBook
             mapConfig = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<ComicBookIssue, Issue>();
+                cfg.CreateMap<Issue, ComicBookIssue>();
+
             });
         }
 
@@ -36,6 +38,23 @@ namespace ComicBookInventory.Domain.ComicBook
             IMapper mapper = mapConfig.CreateMapper();
 
             return mapper.Map<List<ComicBookIssue>, List<Issue>>(_issueAccess.GetComicBookIssuesForUser(userId)).ToList();
+        }
+
+        public Issue GetComicBookIssue(int issueId)
+        {
+            IMapper mapper = mapConfig.CreateMapper();
+
+            return mapper.Map<ComicBookIssue, Issue>(_issueAccess.GetComicBookIssue(issueId));
+        }
+
+        public Migi.Framework.Models.ChangeResult SaveComicBook(Issue issueToSave)
+        {
+            Migi.Framework.Models.ChangeResult result = new Migi.Framework.Models.ChangeResult();
+
+            IMapper mapper = mapConfig.CreateMapper();
+            bool isSaved = _issueAccess.SaveComicBookIssue(mapper.Map<Issue, ComicBookIssue>(issueToSave));
+
+            return result;
         }
     }
 }

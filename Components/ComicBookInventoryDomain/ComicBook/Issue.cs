@@ -9,7 +9,7 @@ namespace ComicBookInventory.Domain.ComicBook
 {
     public class Issue
     {
-        public Guid ComicBookIssueId { get; set; }
+        public int ComicBookIssueId { get; set; } = 0;
         public string SeriesTitle { get; set; }
         public int IssueNumber { get; set; }
         public string Writer { get; set; }

@@ -20,9 +20,9 @@ namespace ComicBookInventoryAPI.Controllers
         // GET api/values
         public IHttpActionResult Get()
         {
-            comicBookAccess.GetComicBookIssuesForUser(new Guid("CACE14BC-AB05-4081-964C-0D75C8C3E8FD"));
+            var comics = comicBookAccess.GetComicBookIssuesForUser(new Guid("CACE14BC-AB05-4081-964C-0D75C8C3E8FD"));
 
-            return Ok();
+            return Ok(comics);
         }
 
         // GET api/values/5

@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using Ninject;
-using System.Web.Mvc;
+using Ninject.Syntax;
+using System.Web.Http.Dependencies;
+
 
 using ComicBookInventory.Domain.Abstract;
 using ComicBookInventory.Domain.ComicBook;
@@ -11,31 +12,19 @@ using ComicBookInventory.Data.Access;
 
 namespace ComicBookInventory.Infrastructure
 {
-    public class NinjectDependencyResolver : IDependencyResolver
+    public class NinjectDependencyResolver : NinjectDependencyScope, IDependencyResolver
     {
-        private IKernel kernel;
+        IKernel kernel;
 
-        public NinjectDependencyResolver()
+        public NinjectDependencyResolver(IKernel kernel)
+            : base(kernel)
         {
-            kernel = new StandardKernel();
-            AddBindings();
+            this.kernel = kernel;
         }
 
-        public object GetService(Type serviceType)
+        public IDependencyScope BeginScope()
         {
-            return kernel.TryGet(serviceType);
-        }
-
-        public IEnumerable<object> GetServices(Type serviceType)
-        {
-            return kernel.GetAll(serviceType);
-        }
-
-        private void AddBindings()
-        {
-            kernel.Bind<IAccess>().To<SqlAccess>();
-            kernel.Bind<IIssueAccess>().To<ComicBookIssueAccess>();
-            kernel.Bind<IComicBook>().To<ComicBookService>();
+            return new NinjectDependencyScope(kernel.BeginBlock());
         }
     }
 }

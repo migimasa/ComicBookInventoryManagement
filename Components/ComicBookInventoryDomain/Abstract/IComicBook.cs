@@ -10,5 +10,9 @@ namespace ComicBookInventory.Domain.Abstract
     public interface IComicBook
     {
         List<Issue> GetComicBookIssuesForUser(Guid userId);
+
+        Issue GetComicBookIssue(int id);
+
+        Migi.Framework.Models.ChangeResult SaveComicBook(Issue issueToSave);
     }
 }
