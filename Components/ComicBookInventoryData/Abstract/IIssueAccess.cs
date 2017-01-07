@@ -10,6 +10,8 @@ namespace ComicBookInventory.Data.Abstract
 
         bool SaveComicBookIssue(ComicBookIssue issue);
 
-        int RemoveComicBookIssue(Guid comicBookIssueId);
+        ComicBookIssue GetComicBookIssue(int issueId, Guid userId);
+
+        bool RemoveComicBookIssue(int comicBookIssueId, Guid userId);
     }
 }

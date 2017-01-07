@@ -2,3 +2,4 @@ J:\Programming\GitHub\ComicBookInventoryManagement\Components\ComicBookInventory
 J:\Programming\GitHub\ComicBookInventoryManagement\Components\ComicBookInventoryTests\bin\Debug\ComicBookInventoryTests.pdb
 J:\Programming\GitHub\ComicBookInventoryManagement\Components\ComicBookInventoryTests\obj\Debug\ComicBookInventoryTests.dll
 J:\Programming\GitHub\ComicBookInventoryManagement\Components\ComicBookInventoryTests\obj\Debug\ComicBookInventoryTests.pdb
+J:\Programming\GitHub\ComicBookInventoryManagement\Components\ComicBookInventoryTests\obj\Debug\ComicBookInventoryTests.csprojResolveAssemblyReference.cache
