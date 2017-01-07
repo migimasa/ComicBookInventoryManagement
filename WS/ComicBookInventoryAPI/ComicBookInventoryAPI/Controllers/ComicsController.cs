@@ -8,6 +8,7 @@ using System.Web.Http;
 using AutoMapper;
 using ComicBookInventoryAPI.Models.Comics.ViewModels;
 using ComicBookInventory.Domain.ComicBook;
+using Migi.Framework.Models;
 
 namespace ComicBookInventoryAPI.Controllers
 {
@@ -49,53 +50,116 @@ namespace ComicBookInventoryAPI.Controllers
         // GET: api/Comics
         public IHttpActionResult Get()
         {
-            IMapper mapper = mapConfig.CreateMapper();
+            try
+            {
+                IMapper mapper = mapConfig.CreateMapper();
 
-            if (UserId.HasValue)
-                return Ok(mapper.Map<List<Issue>, List<ComicBookIssue>>(comicBookAccess.GetComicBookIssuesForUser(UserId.Value)));
-            else
-                return BadRequest("user-id missing from header");
+                if (UserId.HasValue)
+                    return Ok(mapper.Map<List<Issue>, List<ComicBookIssue>>(comicBookAccess.GetComicBookIssuesForUser(UserId.Value)));
+                else
+                    return BadRequest("user-id missing from header");
+            }
+            catch (Exception ex)
+            {
+                //TODO: Add Logging
+                return InternalServerError(ex);
+            }
         }
 
         // GET: api/Comics/5
         public IHttpActionResult Get(int id)
         {
-            IMapper mapper = mapConfig.CreateMapper();
+            try
+            {
+                if (UserId.HasValue)
+                {
+                    IMapper mapper = mapConfig.CreateMapper();
 
-            Issue comicBook = comicBookAccess.GetComicBookIssue(id);
+                    Issue comicBook = comicBookAccess.GetComicBookIssue(id, UserId.Value);
 
-            if (comicBook != null)
-                return Ok(mapper.Map<Issue, ComicBookIssue>(comicBook));
-            return NotFound();
+                    if (comicBook != null)
+                        return Ok(mapper.Map<Issue, ComicBookIssue>(comicBook));
+                    return NotFound();
+                }
+                return BadRequest("user-id missing from header");
+            }
+            catch (Exception ex)
+            {
+                //TODO: Add Logging
+                return InternalServerError(ex);
+            }
         }
 
         // POST: api/Comics
         public IHttpActionResult Post([FromBody]Models.Comics.DTO.ComicBookIssue comicBookIssue)
         {
-            if (UserId.HasValue)
+            try
             {
-                IMapper mapper = mapConfig.CreateMapper();
-                Issue issueToSave = mapper.Map<Models.Comics.DTO.ComicBookIssue, Issue>(comicBookIssue);
-                issueToSave.UserId = UserId.Value;
-                var saveResult = comicBookAccess.SaveComicBook(issueToSave);
+                if (UserId.HasValue)
+                {
+                    IMapper mapper = mapConfig.CreateMapper();
+                    Issue issueToSave = mapper.Map<Models.Comics.DTO.ComicBookIssue, Issue>(comicBookIssue);
+                    issueToSave.UserId = UserId.Value;
 
-                if (saveResult.IsSuccess)
-                    return Ok();
-                else
-                    return InternalServerError();
+                    return GetHttpResponseForChangeResult(comicBookAccess.SaveComicBook(issueToSave));
+                }
+                return BadRequest("user-id missing from header");
             }
-
-            return BadRequest("user-id missing from header");
+            catch (Exception ex)
+            {
+                //TODO: Add Logging
+                return InternalServerError(ex);
+            }
         }
 
         // PUT: api/Comics/5
-        public void Put(int id, [FromBody]string value)
+        public IHttpActionResult Put(int id, [FromBody]Models.Comics.DTO.ComicBookIssue comicBookIssue)
         {
+            try
+            {
+                if (UserId.HasValue)
+                {
+                    IMapper mapper = mapConfig.CreateMapper();
+                    Issue issueToSave = mapper.Map<Models.Comics.DTO.ComicBookIssue, Issue>(comicBookIssue);
+                    issueToSave.UserId = UserId.Value;
+                    issueToSave.ComicBookIssueId = id;
+
+                    return GetHttpResponseForChangeResult(comicBookAccess.SaveComicBook(issueToSave));
+                }
+                return BadRequest("user-id missing from header");
+            }
+            catch (Exception ex)
+            {
+                //TODO: Add Logging
+                return InternalServerError(ex);
+            }
         }
 
         // DELETE: api/Comics/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            try
+            {
+                if (UserId.HasValue)
+                    return GetHttpResponseForChangeResult(comicBookAccess.DeleteComicBook(id, UserId.Value));
+
+                return BadRequest("user-id missing from header");
+            }
+            catch (Exception ex)
+            {
+                //TODO: Add Logging
+                return InternalServerError(ex);
+            }
+        }
+
+        private IHttpActionResult GetHttpResponseForChangeResult(ChangeResult result)
+        {
+            if (result.IsSuccess)
+                return Ok();
+            else
+            {
+                return Conflict();
+            }
         }
     }
 }

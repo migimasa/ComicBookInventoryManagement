@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ComicBookInventory.Domain.ComicBook;
+using Migi.Framework.Models;
 
 namespace ComicBookInventory.Domain.Abstract
 {
@@ -11,8 +12,10 @@ namespace ComicBookInventory.Domain.Abstract
     {
         List<Issue> GetComicBookIssuesForUser(Guid userId);
 
-        Issue GetComicBookIssue(int id);
+        Issue GetComicBookIssue(int id, Guid userId);
 
-        Migi.Framework.Models.ChangeResult SaveComicBook(Issue issueToSave);
+        ChangeResult SaveComicBook(Issue issueToSave);
+
+        ChangeResult DeleteComicBook(int comicBookIssueId, Guid userId);
     }
 }

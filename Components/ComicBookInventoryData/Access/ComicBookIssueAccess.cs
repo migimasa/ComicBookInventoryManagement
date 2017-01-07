@@ -22,11 +22,11 @@ namespace ComicBookInventory.Data.Access
             }
         }
 
-        public ComicBookIssue GetComicBookIssue(int issueId)
+        public ComicBookIssue GetComicBookIssue(int issueId, Guid userId)
         {
             using (SqlConnection connection = GetOpenConnection())
             {
-                return connection.Query<ComicBookIssue>("spComicBookIssueGetComicBookIssue", new { IssueId = issueId }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                return connection.Query<ComicBookIssue>("spComicBookIssueGetComicBookIssue", new { IssueId = issueId, UserId = userId }, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
 
@@ -40,9 +40,14 @@ namespace ComicBookInventory.Data.Access
             }
         }
 
-        public int RemoveComicBookIssue(Guid comicBookIssueId)
+        public bool RemoveComicBookIssue(int comicBookIssueId, Guid userId)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = GetOpenConnection())
+            {
+                int rowsChanged = connection.Execute("spComicBookIssueDeleteComicBookIssue", new { ComicBookIssueId = comicBookIssueId, UserId = userId }, commandType: CommandType.StoredProcedure);
+
+                return rowsChanged > 0;
+            }   
         }
 
     }

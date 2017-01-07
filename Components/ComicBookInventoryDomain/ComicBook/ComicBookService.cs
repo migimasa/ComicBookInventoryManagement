@@ -7,6 +7,7 @@ using ComicBookInventory.Data.Abstract;
 using ComicBookInventory.Data.Models;
 using AutoMapper;
 using ComicBookInventory.Domain.Abstract;
+using Migi.Framework.Models;
 
 
 namespace ComicBookInventory.Domain.ComicBook
@@ -40,19 +41,34 @@ namespace ComicBookInventory.Domain.ComicBook
             return mapper.Map<List<ComicBookIssue>, List<Issue>>(_issueAccess.GetComicBookIssuesForUser(userId)).ToList();
         }
 
-        public Issue GetComicBookIssue(int issueId)
+        public Issue GetComicBookIssue(int issueId, Guid userId)
         {
             IMapper mapper = mapConfig.CreateMapper();
 
-            return mapper.Map<ComicBookIssue, Issue>(_issueAccess.GetComicBookIssue(issueId));
+            return mapper.Map<ComicBookIssue, Issue>(_issueAccess.GetComicBookIssue(issueId, userId));
         }
 
-        public Migi.Framework.Models.ChangeResult SaveComicBook(Issue issueToSave)
+        public ChangeResult SaveComicBook(Issue issueToSave)
         {
-            Migi.Framework.Models.ChangeResult result = new Migi.Framework.Models.ChangeResult();
+            ChangeResult result = new ChangeResult();
 
             IMapper mapper = mapConfig.CreateMapper();
             bool isSaved = _issueAccess.SaveComicBookIssue(mapper.Map<Issue, ComicBookIssue>(issueToSave));
+
+            if (!isSaved)
+                result.AddErrorMessage("Could not save comic book.");
+
+            return result;
+        }
+
+        public ChangeResult DeleteComicBook(int comicBookIssueId, Guid userId)
+        {
+            ChangeResult result = new ChangeResult();
+
+            bool isDeleted = _issueAccess.RemoveComicBookIssue(comicBookIssueId, userId);
+
+            if (!isDeleted)
+                result.AddErrorMessage("Could not delete comic book.");
 
             return result;
         }
