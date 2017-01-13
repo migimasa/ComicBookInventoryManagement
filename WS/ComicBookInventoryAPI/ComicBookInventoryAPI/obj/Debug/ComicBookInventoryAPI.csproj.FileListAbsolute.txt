@@ -81,3 +81,5 @@ J:\Programming\GitHub\ComicBookInventoryManagement\WS\ComicBookInventoryAPI\Comi
 J:\Programming\GitHub\ComicBookInventoryManagement\WS\ComicBookInventoryAPI\ComicBookInventoryAPI\bin\MigiFrameworkHelper.dll
 J:\Programming\GitHub\ComicBookInventoryManagement\WS\ComicBookInventoryAPI\ComicBookInventoryAPI\bin\MigiFrameworkHelper.pdb
 J:\Programming\GitHub\ComicBookInventoryManagement\WS\ComicBookInventoryAPI\ComicBookInventoryAPI\bin\MigiFramework.pdb
+J:\Programming\GitHub\ComicBookInventoryManagement\WS\ComicBookInventoryAPI\ComicBookInventoryAPI\bin\Swashbuckle.Core.dll
+J:\Programming\GitHub\ComicBookInventoryManagement\WS\ComicBookInventoryAPI\ComicBookInventoryAPI\bin\ComicBookInventoryAPI.XML

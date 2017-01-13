@@ -6,9 +6,10 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
-using ComicBookInventoryAPI.Models.Comics.ViewModels;
+using ComicBookInventoryAPI.Models.Comics;
 using ComicBookInventory.Domain.ComicBook;
 using Migi.Framework.Models;
+using System.Web.Http.Description;
 
 namespace ComicBookInventoryAPI.Controllers
 {
@@ -32,8 +33,8 @@ namespace ComicBookInventoryAPI.Controllers
         {
             mapConfig = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<Issue, ComicBookIssue>();
-                cfg.CreateMap<Models.Comics.DTO.ComicBookIssue, Issue>()
+                cfg.CreateMap<Issue, ComicBookIssueViewModel>();
+                cfg.CreateMap<ComicBookIssueDTO, Issue>()
                    .ForMember(dest => dest.SeriesTitle,
                               opts => opts.MapFrom(src => src.Title));
             });
@@ -48,6 +49,16 @@ namespace ComicBookInventoryAPI.Controllers
         }
 
         // GET: api/Comics
+        /// <summary>
+        /// Get the comic books for the user.
+        /// </summary>
+        /// <remarks>Get all comic books for user</remarks>
+        /// <returns>A list of comic books for user id supplied on header</returns>
+        /// <response code="200"></response>
+        /// <response code="400"></response>
+        /// <response code="500"></response>
+        [ResponseType(typeof(IEnumerable<ComicBookIssueViewModel>))]
+        [HttpGet]
         public IHttpActionResult Get()
         {
             try
@@ -55,7 +66,7 @@ namespace ComicBookInventoryAPI.Controllers
                 IMapper mapper = mapConfig.CreateMapper();
 
                 if (UserId.HasValue)
-                    return Ok(mapper.Map<List<Issue>, List<ComicBookIssue>>(comicBookAccess.GetComicBookIssuesForUser(UserId.Value)));
+                    return Ok(mapper.Map<List<Issue>, List<ComicBookIssueViewModel>>(comicBookAccess.GetComicBookIssuesForUser(UserId.Value)));
                 else
                     return BadRequest("user-id missing from header");
             }
@@ -67,6 +78,18 @@ namespace ComicBookInventoryAPI.Controllers
         }
 
         // GET: api/Comics/5
+        /// <summary>
+        /// Get a single comic book.
+        /// </summary>
+        /// <param name="id">The comic book id of the desired comic book</param>
+        /// <remarks>Get the comic book for the supplied id</remarks>
+        /// <returns>A comic book for the id</returns>
+        /// <response code="200">Everything is normal</response>
+        /// <response code="400">Missing user-id</response>
+        /// <response code="404">No comic book found</response>
+        /// <response code="500">An exception occured</response>
+        [ResponseType(typeof(ComicBookIssueViewModel))]
+        [HttpGet]
         public IHttpActionResult Get(int id)
         {
             try
@@ -78,7 +101,7 @@ namespace ComicBookInventoryAPI.Controllers
                     Issue comicBook = comicBookAccess.GetComicBookIssue(id, UserId.Value);
 
                     if (comicBook != null)
-                        return Ok(mapper.Map<Issue, ComicBookIssue>(comicBook));
+                        return Ok(mapper.Map<Issue, ComicBookIssueViewModel>(comicBook));
                     return NotFound();
                 }
                 return BadRequest("user-id missing from header");
@@ -91,14 +114,25 @@ namespace ComicBookInventoryAPI.Controllers
         }
 
         // POST: api/Comics
-        public IHttpActionResult Post([FromBody]Models.Comics.DTO.ComicBookIssue comicBookIssue)
+        /// <summary>
+        /// Add a new comic book
+        /// </summary>
+        /// <remarks>Saves a new comic book</remarks>
+        /// <param name="comicBookIssue">The comic book to add</param>
+        /// <returns>Http Result</returns>
+        /// <response code="200">The issue has been saved.</response>
+        /// <response code="400">Missing user-id</response>
+        /// <response code="409">Validation of new comic book failed</response>
+        /// <response code="500">An exception occured.</response>
+        [HttpPost]
+        public IHttpActionResult Post([FromBody]ComicBookIssueDTO comicBookIssue)
         {
             try
             {
                 if (UserId.HasValue)
                 {
                     IMapper mapper = mapConfig.CreateMapper();
-                    Issue issueToSave = mapper.Map<Models.Comics.DTO.ComicBookIssue, Issue>(comicBookIssue);
+                    Issue issueToSave = mapper.Map<ComicBookIssueDTO, Issue>(comicBookIssue);
                     issueToSave.UserId = UserId.Value;
 
                     return GetHttpResponseForChangeResult(comicBookAccess.SaveComicBook(issueToSave));
@@ -113,14 +147,26 @@ namespace ComicBookInventoryAPI.Controllers
         }
 
         // PUT: api/Comics/5
-        public IHttpActionResult Put(int id, [FromBody]Models.Comics.DTO.ComicBookIssue comicBookIssue)
+        /// <summary>
+        /// Update an existing comic book
+        /// </summary>
+        /// <remarks>Save changes to an existing comic book</remarks>
+        /// <param name="id">The id of the requested comic book</param>
+        /// <param name="comicBookIssue">The comic book to update</param>
+        /// <returns>Http Response</returns>
+        /// <response code="200">The comic book has been updated</response>
+        /// <response code="400">Missing user-id</response>
+        /// <response code="409">Validation failed for comic book to save</response>
+        /// <response code="500">An exception has occured</response>
+        [HttpPut]
+        public IHttpActionResult Put(int id, [FromBody]ComicBookIssueDTO comicBookIssue)
         {
             try
             {
                 if (UserId.HasValue)
                 {
                     IMapper mapper = mapConfig.CreateMapper();
-                    Issue issueToSave = mapper.Map<Models.Comics.DTO.ComicBookIssue, Issue>(comicBookIssue);
+                    Issue issueToSave = mapper.Map<ComicBookIssueDTO, Issue>(comicBookIssue);
                     issueToSave.UserId = UserId.Value;
                     issueToSave.ComicBookIssueId = id;
 
@@ -136,6 +182,17 @@ namespace ComicBookInventoryAPI.Controllers
         }
 
         // DELETE: api/Comics/5
+        /// <summary>
+        /// Delete comic book
+        /// </summary>
+        /// <remarks>Delete the desired comic book</remarks>
+        /// <param name="id">The id of the comic book to delete</param>
+        /// <returns>Http Response</returns>
+        /// <response code="200">The comic book has been deleted</response>
+        /// <response code="400">Missing user-id</response>
+        /// <response code="409">Business Logic failure</response>
+        /// <response code="500">An exception has occured</response>
+        [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
             try
