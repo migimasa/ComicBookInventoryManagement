@@ -27,8 +27,11 @@ namespace ComicBookInventoryAPI.Areas.HelpPage.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.DocumentationProvider = Configuration.Services.GetDocumentationProvider();
-            return View(Configuration.Services.GetApiExplorer().ApiDescriptions);
+            //ViewBag.DocumentationProvider = Configuration.Services.GetDocumentationProvider();
+            //return View(Configuration.Services.GetApiExplorer().ApiDescriptions);
+            string swaggerUrl = string.Format("{0}://{1}{2}swagger", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
+
+            return Redirect(swaggerUrl);
         }
 
         public ActionResult Api(string apiId)

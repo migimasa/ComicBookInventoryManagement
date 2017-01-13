@@ -13,17 +13,23 @@ using System.Web.Http.Description;
 
 namespace ComicBookInventoryAPI.Controllers
 {
+    /// <summary>
+    /// Actions for managing comic books
+    /// </summary>
     public class ComicsController : ApiController
     {
-        private IComicBook comicBookAccess;
+        private IComicBook comicBookService;
         private MapperConfiguration mapConfig;
 
         private Guid? UserId { get { return GetUserIdFromHeader(); } }
 
-
-        public ComicsController(IComicBook comicBookAccess)
+        /// <summary>
+        /// Initialize a new comic book controller instance
+        /// </summary>
+        /// <param name="comicBookService">A service for handling comic book actions</param>
+        public ComicsController(IComicBook comicBookService)
         {
-            this.comicBookAccess = comicBookAccess;
+            this.comicBookService = comicBookService;
 
             InitializeMapConfig();
         }
@@ -66,7 +72,7 @@ namespace ComicBookInventoryAPI.Controllers
                 IMapper mapper = mapConfig.CreateMapper();
 
                 if (UserId.HasValue)
-                    return Ok(mapper.Map<List<Issue>, List<ComicBookIssueViewModel>>(comicBookAccess.GetComicBookIssuesForUser(UserId.Value)));
+                    return Ok(mapper.Map<List<Issue>, List<ComicBookIssueViewModel>>(comicBookService.GetComicBookIssuesForUser(UserId.Value)));
                 else
                     return BadRequest("user-id missing from header");
             }
@@ -98,7 +104,7 @@ namespace ComicBookInventoryAPI.Controllers
                 {
                     IMapper mapper = mapConfig.CreateMapper();
 
-                    Issue comicBook = comicBookAccess.GetComicBookIssue(id, UserId.Value);
+                    Issue comicBook = comicBookService.GetComicBookIssue(id, UserId.Value);
 
                     if (comicBook != null)
                         return Ok(mapper.Map<Issue, ComicBookIssueViewModel>(comicBook));
@@ -135,7 +141,7 @@ namespace ComicBookInventoryAPI.Controllers
                     Issue issueToSave = mapper.Map<ComicBookIssueDTO, Issue>(comicBookIssue);
                     issueToSave.UserId = UserId.Value;
 
-                    return GetHttpResponseForChangeResult(comicBookAccess.SaveComicBook(issueToSave));
+                    return GetHttpResponseForChangeResult(comicBookService.SaveComicBook(issueToSave));
                 }
                 return BadRequest("user-id missing from header");
             }
@@ -170,7 +176,7 @@ namespace ComicBookInventoryAPI.Controllers
                     issueToSave.UserId = UserId.Value;
                     issueToSave.ComicBookIssueId = id;
 
-                    return GetHttpResponseForChangeResult(comicBookAccess.SaveComicBook(issueToSave));
+                    return GetHttpResponseForChangeResult(comicBookService.SaveComicBook(issueToSave));
                 }
                 return BadRequest("user-id missing from header");
             }
@@ -198,7 +204,7 @@ namespace ComicBookInventoryAPI.Controllers
             try
             {
                 if (UserId.HasValue)
-                    return GetHttpResponseForChangeResult(comicBookAccess.DeleteComicBook(id, UserId.Value));
+                    return GetHttpResponseForChangeResult(comicBookService.DeleteComicBook(id, UserId.Value));
 
                 return BadRequest("user-id missing from header");
             }

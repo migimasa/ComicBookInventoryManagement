@@ -81,3 +81,5 @@ J:\Programming\GitHub\ComicBookInventoryManagement\WS\ComicBookInventoryAPI\Comi
 J:\Programming\GitHub\ComicBookInventoryManagement\WS\ComicBookInventoryAPI\ComicBookInventoryAPI\obj\Release\ComicBookInventoryAPI.csprojResolveAssemblyReference.cache
 J:\Programming\GitHub\ComicBookInventoryManagement\WS\ComicBookInventoryAPI\ComicBookInventoryAPI\obj\Release\ComicBookInventoryAPI.dll
 J:\Programming\GitHub\ComicBookInventoryManagement\WS\ComicBookInventoryAPI\ComicBookInventoryAPI\obj\Release\ComicBookInventoryAPI.pdb
+J:\Programming\GitHub\ComicBookInventoryManagement\WS\ComicBookInventoryAPI\ComicBookInventoryAPI\bin\Swashbuckle.Core.dll
+J:\Programming\GitHub\ComicBookInventoryManagement\WS\ComicBookInventoryAPI\ComicBookInventoryAPI\bin\ComicBookInventoryAPI.XML
